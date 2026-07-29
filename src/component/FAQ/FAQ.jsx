@@ -54,7 +54,7 @@ const AccordionItem = ({ item, isOpen, onToggle }) => (
       />
     </button>
 
-    {/* Framer Motion Smooth Height Expand & Collapse */}
+    {/* Smooth & Fast Height Expand/Collapse */}
     <AnimatePresence initial={false}>
       {isOpen && (
         <motion.div
@@ -62,8 +62,8 @@ const AccordionItem = ({ item, isOpen, onToggle }) => (
           initial={{ height: 0, opacity: 0 }}
           animate={{ height: 'auto', opacity: 1 }}
           exit={{ height: 0, opacity: 0 }}
-          transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
-          className="overflow-hidden"
+          transition={{ duration: 0.25, ease: 'easeOut' }}
+          className="overflow-hidden transform-gpu"
         >
           <div className="pt-4 flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
             <p className="flex-1 text-gray-500 text-xs sm:text-sm leading-relaxed">
@@ -74,6 +74,7 @@ const AccordionItem = ({ item, isOpen, onToggle }) => (
                 <img
                   src={item.image}
                   alt={item.question}
+                  loading="lazy"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -91,15 +92,38 @@ const FAQ = () => {
   const handleToggle = index =>
     setOpenIndex(prev => (prev === index ? null : index));
 
+  // Stagger Container for Smooth Entrance
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.06,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 15 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.25, ease: 'easeOut' },
+    },
+  };
+
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-white overflow-hidden">
+    <section
+      id="faq"
+      className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-white overflow-hidden"
+    >
       {/* Header Section Animation */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 15 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
-        className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12"
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.3, ease: 'easeOut' }}
+        className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12 transform-gpu"
       >
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-black tracking-tight max-w-md leading-tight">
           Frequently asked questions
@@ -112,18 +136,18 @@ const FAQ = () => {
       </motion.div>
 
       {/* Accordion List Animation */}
-      <div className="space-y-4">
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.1 }}
+        className="space-y-4"
+      >
         {FAQ_DATA.map((item, index) => (
           <motion.div
             key={item.id}
-            initial={{ opacity: 0, y: 25 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{
-              duration: 0.4,
-              delay: index * 0.1,
-              ease: 'easeOut',
-            }}
+            variants={itemVariants}
+            className="transform-gpu"
           >
             <AccordionItem
               item={item}
@@ -132,7 +156,7 @@ const FAQ = () => {
             />
           </motion.div>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 };

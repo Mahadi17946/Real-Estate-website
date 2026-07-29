@@ -41,10 +41,10 @@ const STATS = [
 const arrowBtnClass =
   'w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center text-gray-700 hover:bg-gray-100 hover:border-black transition-all cursor-pointer active:scale-95';
 
-// Dynamic Slide Variants for Framer Motion
+// Fast & Lightweight Slide Transition (Snappy Feel)
 const cardVariants = {
   enter: direction => ({
-    x: direction === 'right' ? 50 : -50,
+    x: direction === 'right' ? 15 : -15,
     opacity: 0,
   }),
   center: {
@@ -52,7 +52,7 @@ const cardVariants = {
     opacity: 1,
   },
   exit: direction => ({
-    x: direction === 'right' ? -50 : 50,
+    x: direction === 'right' ? -15 : 15,
     opacity: 0,
   }),
 };
@@ -78,15 +78,15 @@ const Gallery = () => {
   };
 
   return (
-    <section className="py-20 bg-white relative overflow-hidden">
+    <section id="gallery" className="py-20 bg-white relative overflow-hidden">
       <div className="container mx-auto px-4">
         {/* Header Animation */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="mb-10"
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.3, ease: 'easeOut' }}
+          className="mb-10 transform-gpu"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal text-black max-w-2xl leading-tight">
             Your primary home might begin to feel left out.
@@ -96,16 +96,16 @@ const Gallery = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
           {/* Left — Main Image Gallery */}
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.7, ease: 'easeOut' }}
-            className="lg:col-span-5 relative rounded-[32px] overflow-hidden min-h-[420px] lg:min-h-full shadow-sm group"
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.35, ease: 'easeOut' }}
+            className="lg:col-span-5 relative rounded-[32px] overflow-hidden min-h-[420px] lg:min-h-full shadow-sm group transform-gpu"
           >
             <button
               type="button"
               onClick={() => setIsModalOpen(true)}
-              className="absolute top-4 right-4 z-10 bg-white/70 hover:bg-white text-black p-3 rounded-full backdrop-blur-md transition-all cursor-pointer shadow-md hover:scale-110"
+              className="absolute top-4 right-4 z-10 bg-white/80 hover:bg-white text-black p-3 rounded-full transition-all cursor-pointer shadow-md hover:scale-105 active:scale-95"
             >
               <FiMaximize2 className="text-lg" />
             </button>
@@ -113,18 +113,18 @@ const Gallery = () => {
             <AnimatePresence mode="wait">
               <motion.img
                 key={activeImgIndex}
-                initial={{ opacity: 0, scale: 1.05 }}
-                animate={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.4 }}
+                transition={{ duration: 0.25, ease: 'easeInOut' }}
                 src={GALLERY_IMAGES[activeImgIndex]}
                 alt="Main gallery view"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transform-gpu"
               />
             </AnimatePresence>
 
             {/* Thumbnail Controls */}
-            <div className="absolute bottom-4 right-4 z-10 bg-white/40 backdrop-blur-md p-1.5 rounded-full flex items-center gap-2 border border-white/40 shadow-lg">
+            <div className="absolute bottom-4 right-4 z-10 bg-white/60 p-1.5 rounded-full flex items-center gap-2 border border-white/60 shadow-lg">
               {GALLERY_IMAGES.map((img, index) => (
                 <button
                   key={index}
@@ -133,7 +133,7 @@ const Gallery = () => {
                   className={`w-10 h-10 rounded-full overflow-hidden border-2 transition-all cursor-pointer ${
                     activeImgIndex === index
                       ? 'border-[#82d636] scale-105 shadow-md'
-                      : 'border-white/70 opacity-80 hover:opacity-100'
+                      : 'border-white/80 opacity-80 hover:opacity-100'
                   }`}
                 >
                   <img
@@ -148,11 +148,11 @@ const Gallery = () => {
 
           {/* Right — Pricing Cards + Controls */}
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.7, ease: 'easeOut' }}
-            className="lg:col-span-7 flex flex-col justify-between gap-6 overflow-hidden"
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.35, delay: 0.1, ease: 'easeOut' }}
+            className="lg:col-span-7 flex flex-col justify-between gap-6 overflow-hidden transform-gpu"
           >
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 grow">
               {/* Text Card */}
@@ -165,7 +165,8 @@ const Gallery = () => {
                     initial="enter"
                     animate="center"
                     exit="exit"
-                    transition={{ duration: 0.4, ease: 'easeInOut' }}
+                    transition={{ duration: 0.25, ease: 'easeInOut' }}
+                    className="transform-gpu"
                   >
                     <h3 className="text-xl sm:text-2xl font-normal text-black mb-3 leading-snug">
                       {currentCard.title}
@@ -177,7 +178,7 @@ const Gallery = () => {
                 </AnimatePresence>
                 <button
                   type="button"
-                  className="mt-5 bg-white text-gray-800 text-xs font-medium px-5 py-2 rounded-full border border-gray-200 shadow-sm hover:bg-gray-50 transition-all cursor-pointer"
+                  className="mt-5 bg-white text-gray-800 text-xs font-medium px-5 py-2 rounded-full border border-gray-200 shadow-sm hover:bg-gray-50 transition-all cursor-pointer active:scale-95"
                 >
                   Details
                 </button>
@@ -193,8 +194,8 @@ const Gallery = () => {
                     initial="enter"
                     animate="center"
                     exit="exit"
-                    transition={{ duration: 0.4, ease: 'easeInOut' }}
-                    className="w-full flex flex-col items-center"
+                    transition={{ duration: 0.25, ease: 'easeInOut' }}
+                    className="w-full flex flex-col items-center transform-gpu"
                   >
                     <div className="w-full h-[170px] sm:h-[180px] rounded-[20px] overflow-hidden mb-3">
                       <img
@@ -208,7 +209,7 @@ const Gallery = () => {
                     </p>
                     <button
                       type="button"
-                      className="flex items-center gap-2 bg-black text-white text-xs font-medium px-5 py-2.5 rounded-full hover:bg-gray-800 transition-all cursor-pointer"
+                      className="flex items-center gap-2 bg-black text-white text-xs font-medium px-5 py-2.5 rounded-full hover:bg-gray-800 transition-all cursor-pointer active:scale-95"
                     >
                       Explore Properties
                       <span className="text-sm">→</span>
@@ -252,14 +253,14 @@ const Gallery = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 bg-black/90 backdrop-blur-md z-[999] flex items-center justify-center p-4 sm:p-8"
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 bg-black/85 z-[999] flex items-center justify-center p-4 sm:p-8"
             onClick={() => setIsModalOpen(false)}
           >
             <button
               type="button"
               onClick={() => setIsModalOpen(false)}
-              className="absolute top-6 right-6 z-10 text-white bg-white/20 hover:bg-white/40 p-3 rounded-full transition-all cursor-pointer"
+              className="absolute top-6 right-6 z-10 text-white bg-white/20 hover:bg-white/30 p-3 rounded-full transition-all cursor-pointer"
             >
               <FiX className="text-2xl" />
             </button>
@@ -268,10 +269,10 @@ const Gallery = () => {
               onClick={e => e.stopPropagation()}
             >
               <motion.img
-                initial={{ scale: 0.85, opacity: 0 }}
+                initial={{ scale: 0.95, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.85, opacity: 0 }}
-                transition={{ duration: 0.3 }}
+                exit={{ scale: 0.95, opacity: 0 }}
+                transition={{ duration: 0.2 }}
                 src={GALLERY_IMAGES[activeImgIndex]}
                 alt="Zoomed gallery view"
                 className="max-w-full max-h-[85vh] object-contain rounded-2xl shadow-2xl"
@@ -281,48 +282,7 @@ const Gallery = () => {
         )}
       </AnimatePresence>
 
-      {/* Stats Section Animation */}
-      {/* Stats Section Animation */}
-      <div className="w-full bg-white pt-24 px-4 overflow-hidden">
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={{
-            hidden: { opacity: 0 },
-            show: {
-              opacity: 1,
-              transition: {
-                staggerChildren: 0.15, // একটির পর একটি স্মুথলি আসবে
-              },
-            },
-          }}
-          className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-0 md:divide-x md:divide-gray-300"
-        >
-          {STATS.map(({ value, label }) => (
-            <motion.div
-              key={label}
-              variants={{
-                hidden: { opacity: 0, y: 40 },
-                show: {
-                  opacity: 1,
-                  y: 0,
-                  transition: {
-                    duration: 0.6,
-                    ease: [0.16, 1, 0.3, 1],
-                  },
-                },
-              }}
-              className="flex flex-col items-center justify-center text-center px-4"
-            >
-              <h3 className="text-4xl sm:text-5xl md:text-6xl font-semibold text-black tracking-tight mb-2">
-                {value}
-              </h3>
-              <p className="text-xs sm:text-sm text-gray-500">{label}</p>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
+     
     </section>
   );
 };

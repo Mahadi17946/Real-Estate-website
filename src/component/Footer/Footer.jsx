@@ -21,7 +21,7 @@ const NAV_RIGHT = [
 
 const navLinkClass = 'hover:text-black transition-colors whitespace-nowrap';
 
-// Navigation Links Helper Component
+// Nav Links Helper Component
 const NavLinks = ({ links }) => (
   <ul className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 md:gap-8 text-xs sm:text-sm font-medium text-gray-700">
     {links.map(({ label, href }) => (
@@ -34,17 +34,26 @@ const NavLinks = ({ links }) => (
   </ul>
 );
 
-// Main Footer Component
+// Smooth Fade-Up Preset (Lightweight for GPU)
+const fadeUpVariant = {
+  hidden: { opacity: 0, y: 15 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.35, ease: 'easeOut' },
+  },
+};
+
 const Footer = () => (
   <footer id="contact" className="w-full bg-white pt-10 overflow-hidden">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* CTA Banner Animation */}
       <motion.div
-        initial={{ opacity: 0, y: 40, scale: 0.98 }}
-        whileInView={{ opacity: 1, y: 0, scale: 1 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.7, ease: 'easeOut' }}
-        className="relative rounded-[24px] sm:rounded-[32px] overflow-hidden bg-cover bg-center py-12 sm:py-20 px-4 sm:px-12 text-center text-white shadow-sm"
+        variants={fadeUpVariant}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        className="relative rounded-[24px] sm:rounded-[32px] overflow-hidden bg-cover bg-center py-12 sm:py-20 px-4 sm:px-12 text-center text-white shadow-sm transform-gpu"
         style={{ backgroundImage: `url(${bg})` }}
       >
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/50 to-black/30" />
@@ -60,7 +69,7 @@ const Footer = () => (
           <Link to="/signup">
             <button
               type="button"
-              className="group flex items-center gap-2 bg-white text-black hover:bg-gray-100 transition-all font-semibold text-xs sm:text-sm px-5 sm:px-6 py-2.5 sm:py-3 rounded-full cursor-pointer shadow-md whitespace-nowrap"
+              className="group flex items-center gap-2 bg-white text-black hover:bg-gray-100 transition-all font-semibold text-xs sm:text-sm px-5 sm:px-6 py-2.5 sm:py-3 rounded-full cursor-pointer shadow-md whitespace-nowrap active:scale-95"
             >
               Get Started
               <FiArrowRight className="text-sm sm:text-base group-hover:translate-x-1 transition-transform" />
@@ -69,41 +78,35 @@ const Footer = () => (
         </div>
       </motion.div>
 
-      {/* Headline & Contact Info Animation */}
-      <div className="py-10 sm:py-16 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 sm:gap-8 border-b border-gray-100">
-        <motion.h2
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="text-2xl sm:text-4xl md:text-5xl font-semibold text-black max-w-xl leading-tight tracking-tight"
-        >
+      {/* Headline & Contact Info (Lightweight Vertical Fade) */}
+      <motion.div
+        variants={fadeUpVariant}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        className="py-10 sm:py-16 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 sm:gap-8 border-b border-gray-100"
+      >
+        <h2 className="text-2xl sm:text-4xl md:text-5xl font-semibold text-black max-w-xl leading-tight tracking-tight">
           Discover Nature's{' '}
           <span className="text-gray-500 font-normal">Wonders</span>
           <br />
           with Expert Guidance
-        </motion.h2>
+        </h2>
 
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
-          className="text-xs sm:text-sm text-gray-600 space-y-1 md:text-right"
-        >
+        <div className="text-xs sm:text-sm text-gray-600 space-y-1 md:text-right">
           <p>12345, Gazipur, Dhaka Road, Bangladesh.</p>
           <p className="text-black font-bold text-sm sm:text-base pt-1">
             (+1) 839-849-8483
           </p>
-        </motion.div>
-      </div>
+        </div>
+      </motion.div>
 
-      {/* Navigation Links and Logo Animation */}
+      {/* Navigation Links and Logo */}
       <motion.div
-        initial={{ opacity: 0, y: 25 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.2, ease: 'easeOut' }}
+        variants={fadeUpVariant}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
         className="py-8 flex flex-col md:flex-row justify-between items-center gap-6 border-b border-gray-100"
       >
         <div className="order-2 md:order-1">
@@ -119,14 +122,8 @@ const Footer = () => (
         </div>
       </motion.div>
 
-      {/* Copyright & Policy Links Animation */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-        className="py-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-gray-500 text-center sm:text-left"
-      >
+      {/* Copyright & Policy Links */}
+      <div className="py-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-gray-500 text-center sm:text-left">
         <p>© 2025 EverGreen. All rights reserved.</p>
         <div className="flex items-center gap-2">
           <a href="#terms" className={navLinkClass}>
@@ -137,7 +134,7 @@ const Footer = () => (
             Privacy Policy
           </a>
         </div>
-      </motion.div>
+      </div>
     </div>
   </footer>
 );

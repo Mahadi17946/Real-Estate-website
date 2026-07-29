@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FiMail, FiLock, FiX } from 'react-icons/fi';
-import bannerBg from '../../assets/Banner.jpg'; // তোমার Banner ইমেজের সঠিক Path টা দাও
+import bannerBg from '../../assets/Banner.jpg';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -37,25 +37,31 @@ const Login = () => {
       className="min-h-screen flex items-center justify-center relative bg-cover bg-center px-4 py-8 sm:py-12 overflow-hidden"
       style={{ backgroundImage: `url(${bannerBg})` }}
     >
-      {/* Dark Overlay over the Background Image */}
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
-
-      {/* Animated Glassmorphism Card */}
+      {/* Dark Overlay - Fades out instantly on exit */}
       <motion.div
-        initial={{ y: '-100vh', opacity: 0 }}
-        animate={isExiting ? { y: '-100vh', opacity: 0 } : { y: 0, opacity: 1 }}
+        animate={{ opacity: isExiting ? 0 : 1 }}
+        transition={{ duration: isExiting ? 0.15 : 0.3 }}
+        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+      />
+
+      {/* Animated Card - Fast Drop Down & Instant Slide Up */}
+      <motion.div
+        initial={{ y: '-120%', opacity: 0 }}
+        animate={
+          isExiting ? { y: '-120%', opacity: 0 } : { y: '0%', opacity: 1 }
+        }
         transition={{
-          duration: isExiting ? 0.35 : 0.6,
-          ease: isExiting ? [0.4, 0, 1, 1] : [0.16, 1, 0.3, 1],
+          duration: isExiting ? 0.18 : 0.4,
+          ease: isExiting ? 'easeIn' : [0.16, 1, 0.3, 1],
         }}
         onAnimationComplete={handleAnimationComplete}
-        className="relative z-10 max-w-md w-full bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl p-6 sm:p-8 border border-white/40"
+        className="relative z-10 max-w-md w-full bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl p-6 sm:p-8 border border-white/40 transform-gpu"
       >
         {/* Close Button */}
         <button
           type="button"
           onClick={handleClose}
-          className="absolute top-4 right-4 sm:top-5 sm:right-5 p-2 rounded-full text-gray-500 hover:text-black hover:bg-white/50 transition-all cursor-pointer z-10"
+          className="absolute top-4 right-4 sm:top-5 sm:right-5 p-2 rounded-full text-gray-500 hover:text-black hover:bg-white/50 transition-all cursor-pointer z-10 active:scale-95"
           aria-label="Close and return to home"
         >
           <FiX className="text-xl" />
@@ -114,7 +120,7 @@ const Login = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-black hover:bg-gray-800 text-white font-semibold py-3.5 rounded-full transition-all cursor-pointer shadow-md text-sm mt-2"
+            className="w-full bg-black hover:bg-gray-800 text-white font-semibold py-3.5 rounded-full transition-all cursor-pointer shadow-md text-sm mt-2 active:scale-95"
           >
             Log In
           </button>
