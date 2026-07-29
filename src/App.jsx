@@ -6,14 +6,14 @@ import './App.css';
 import Navber from './component/Navber/Navber';
 import Banner from './component/Banner/Banner';
 import About from './component/About/About';
-import Gallery from './component/Gallery/gallery';
+import Gallery from './component/Gallery/Gallery';
 import Location from './component/Location/Location';
 import Card from './component/Card/Card';
 import FAQ from './component/FAQ/FAQ';
 import Review from './component/Review/Review';
 import Footer from './component/Footer/Footer';
-import SignUp from './component/Signup/SignUp'; 
-import Login from './component/Login/Login'; 
+import SignUp from './component/Signup/SignUp';
+import Login from './component/Login/Login';
 
 const Home = () => {
   return (
