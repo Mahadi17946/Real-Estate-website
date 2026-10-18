@@ -1,4 +1,4 @@
-```jsx
+
 import { useEffect, useState } from 'react';
 import { FiMenu, FiX } from 'react-icons/fi';
 import Logo from '../../assets/Logo.png';
@@ -169,4 +169,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
-```
+
