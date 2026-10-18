@@ -1,6 +1,6 @@
+```jsx
 import { useEffect, useState } from 'react';
 import { FiMenu, FiX } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
 import Logo from '../../assets/Logo.png';
 
 const navigationLinks = [
@@ -30,14 +30,20 @@ const Navbar = () => {
         const sectionTop = section.offsetTop;
         const sectionBottom = sectionTop + section.offsetHeight;
 
-        if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+        if (
+          scrollPosition >= sectionTop &&
+          scrollPosition < sectionBottom
+        ) {
           setActiveSection(link.label);
           break;
         }
       }
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('scroll', handleScroll, {
+      passive: true,
+    });
+
     handleScroll();
 
     return () => window.removeEventListener('scroll', handleScroll);
@@ -52,7 +58,7 @@ const Navbar = () => {
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-3 sm:px-6 lg:px-8">
-        {/* Brand Logo - Scaled for mobile */}
+        {/* Brand Logo */}
         <a href="#home" className="shrink flex items-center">
           <img
             src={Logo}
@@ -95,27 +101,15 @@ const Navbar = () => {
 
         {/* Header Actions */}
         <div className="flex items-center gap-2 sm:gap-4 shrink-0">
-          {/* Desktop Login Link */}
-          <Link
-            to="/login"
-            className={`hidden items-center gap-2 text-[15px] font-medium transition-colors duration-200 md:flex ${
-              isScrolled
-                ? 'text-gray-700 hover:text-black'
-                : 'text-white hover:text-gray-200'
-            }`}
-          >
-            <span>Login</span>
-          </Link>
-
-          {/* Sign Up Button - Prevent line wrap */}
-          <Link to="/signup">
+          {/* Sign Up Button */}
+          <a href="/signup">
             <button
               type="button"
               className="bg-[#B5F285] hover:bg-[#a2e36f] text-black font-semibold text-xs sm:text-sm px-3.5 sm:px-6 py-1.5 sm:py-2.5 rounded-full transition-all cursor-pointer shadow-sm whitespace-nowrap"
             >
               Sign Up
             </button>
-          </Link>
+          </a>
 
           {/* Mobile Menu Toggle */}
           <button
@@ -146,7 +140,7 @@ const Navbar = () => {
         }`}
       >
         <div className="flex flex-col gap-2.5">
-          {/* Mobile Nav Links */}
+          {/* Mobile Navigation Links */}
           {navigationLinks.map(link => {
             const isActive = activeSection === link.label;
 
@@ -168,20 +162,6 @@ const Navbar = () => {
               </a>
             );
           })}
-
-          <hr className="my-1 border-gray-100" />
-
-          {/* Mobile Login Route Link */}
-          <div className="flex items-center justify-between px-2 pt-1">
-            <Link
-              to="/login"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-sm font-semibold text-gray-800 hover:text-black py-1"
-            >
-              Already have an account?{' '}
-              <span className="underline text-[#5ca822] ">Log In</span>
-            </Link>
-          </div>
         </div>
       </div>
     </header>
@@ -189,3 +169,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+```
