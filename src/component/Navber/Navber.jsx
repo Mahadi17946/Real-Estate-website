@@ -107,7 +107,7 @@ const Navbar = () => {
               type="button"
               className="bg-[#B5F285] hover:bg-[#a2e36f] text-black font-semibold text-xs sm:text-sm px-3.5 sm:px-6 py-1.5 sm:py-2.5 rounded-full transition-all cursor-pointer shadow-sm whitespace-nowrap"
             >
-              Sign Up
+              Contact Us
             </button>
           </a>
 

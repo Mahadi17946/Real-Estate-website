@@ -1,6 +1,5 @@
-
 import React, { useState } from 'react';
-import { FiUser, FiMail, FiMessageSquare, FiPhone } from 'react-icons/fi';
+import { FiUser, FiMail, FiMessageSquare, FiPhone, FiX } from 'react-icons/fi';
 import bannerBg from '../../assets/Banner.jpg';
 
 const inputClass =
@@ -37,6 +36,15 @@ const SignUp = () => {
 
       {/* Contact Container */}
       <div className="relative z-10 w-full max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 bg-white/90 backdrop-blur-xl rounded-3xl overflow-hidden shadow-2xl border border-white/40">
+        {/* Close Button */}
+        <button
+          type="button"
+          onClick={() => window.history.back()}
+          className="absolute top-3 right-3 z-30 w-10 h-10 flex items-center justify-center rounded-full bg-[#1B2422] text-white hover:bg-[#B5F285] hover:text-black transition-all cursor-pointer shadow-md"
+          aria-label="Close contact form"
+        >
+          <FiX size={22} />
+        </button>
 
         {/* Contact Information */}
         <div className="bg-[#1B2422] text-white p-7 sm:p-10 flex flex-col justify-between">
@@ -47,9 +55,7 @@ const SignUp = () => {
 
             <h2 className="text-3xl sm:text-4xl font-semibold leading-tight">
               Let's Find Your
-              <span className="block text-[#B5F285] mt-1">
-                Dream Property.
-              </span>
+              <span className="block text-[#B5F285] mt-1">Dream Property.</span>
             </h2>
 
             <p className="text-sm text-gray-300 leading-7 mt-5 max-w-sm">

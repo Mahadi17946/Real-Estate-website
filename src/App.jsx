@@ -13,7 +13,7 @@ import FAQ from './component/FAQ/FAQ';
 import Review from './component/Review/Review';
 import Footer from './component/Footer/Footer';
 import SignUp from './component/Signup/SignUp';
-import Login from './component/Login/Login';
+
 
 const Home = () => {
   return (
@@ -37,7 +37,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/login" element={<Login />} />
+        
       </Routes>
     </Router>
   );
