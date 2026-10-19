@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { FiMenu, FiX } from 'react-icons/fi';
 import Logo from '../../assets/Logo.png';
@@ -30,10 +29,7 @@ const Navbar = () => {
         const sectionTop = section.offsetTop;
         const sectionBottom = sectionTop + section.offsetHeight;
 
-        if (
-          scrollPosition >= sectionTop &&
-          scrollPosition < sectionBottom
-        ) {
+        if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
           setActiveSection(link.label);
           break;
         }
@@ -169,4 +165,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
